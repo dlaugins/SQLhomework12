@@ -9,7 +9,7 @@ var connection = mysql.createConnection({
 });
 
 connection.connect(function (err) {
-    console.log("connected as id: " + connection.threadId)
+    // console.log("connected as id: " + connection.threadId)
     afterConnection();
 });
 
@@ -41,21 +41,24 @@ var order = function () {
     }]).then(function (answer) {
         buyItem(answer.buyItem, answer.quantity)
 
-        // console.log("Your item was successfully ordered")
+        
     })
 }
 
 function buyItem(buyItem, quantity) {
-    connection.query("SELECT item_id, product_name, stock_quantity FROM products where item_id = " + buyItem, function (err, res) {
+    connection.query("SELECT item_id, product_name, stock_quantity, price FROM products where item_id = " + buyItem, function (err, res) {
 		if(err)throw err;
-        console.log(res[0].item_id, res[0].product_name, res[0].stock_quantity);
+        // console.log(res[0].item_id, res[0].product_name, res[0].stock_quantity);
         if (quantity > res[0].stock_quantity) {
             console.log("There is not enough stock");
         }
         else {
             console.log("You have successfully ordered your product");
             var newQuantity = res[0].stock_quantity - quantity;
+            var newCost = res[0].price * newQuantity;
             modifyRecord(buyItem, newQuantity);
+            console.log("You bought  " + quantity + " " + res[0].product_name + "s"+ " for $ " + newCost);
+            console.log("The amount in stock changed from " + res[0].stock_quantity + " to " + newQuantity);
         }
         // 
         // afterConnection();
@@ -70,7 +73,7 @@ function modifyRecord(buyItem, newQuantity) {
     
     connection.query(sql, function (err, res) {
 		if(err)throw err;
-        afterConnection();
-        console.log(buyItem, newQuantity)
+        // afterConnection();
+       
     })
 }

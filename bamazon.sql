@@ -10,7 +10,7 @@ stock_quantity integer (20),
 Primary KEY(item_id)
 );
 
-insert into products(item_id,product_name,department_name,price,stock_quantity)
+insert into products(product_name,department_name,price,stock_quantity)
 values("basketball","sports",10.50,100),
 ("football","sports",11.00,200),
 ("tennis ball","sports",2.50,500),
