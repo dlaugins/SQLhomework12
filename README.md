@@ -50,9 +50,105 @@ You bought  5 footballs for $ 484
 The amount in stock changed from 49 to 44
 
 
+Part2
 
+I completed part 2 which lets the manager choose between View Products for Sale,View Low Inventory, Add to Inventory, and Add New Product.
 
+1) Screenshot of Products for sale:
 
+? Manager Options View Products for Sale
+{ action: 'View Products for Sale' }
+item_id  product_name    department_name  price  stock_quantity
+-------  --------------  ---------------  -----  --------------
+1        basketball      sports           10.5   100
+2        football        sports           11     44
+3        tennis ball     sports           2.5    60
+4        running shirt   active wear      24.5   15
+5        running shorts  active wear      24.5   32
+6        hat             outer wear       6.5    250
+7        gloves          outer wear       10     55
+8        screw driver    tools            4.5    125
+9        hammer          tools            6      300
+10       solder iron     tools            21     400
+11       swim            sport            40     300
+12       ball            sports           30     300
+13       ball            sports           30     300
 
-This means updating the SQL database to reflect the remaining quantity.
-Once the update goes through, show the customer the total cost of their purchase.
+? Manager Options (Use arrow keys)
+> View Products for Sale
+  View Low Inventory
+  Add to Inventory
+  Add New Product
+
+2) Screenshot of view Low inventory (I told it to show items with inventory less than 20)
+
+ Manager Options View Low Inventory
+{ action: 'View Low Inventory' }
+? Manager Options (Use arrow keys)
+> View Products for Sale
+  View Low Inventory
+  Add to Inventory
+  Add New Product
+item_id  product_name   department_name  price  stock_quantity
+-------  -------------  ---------------  -----  --------------
+4        running shirt  active wear      24.5   15
+
+3) Screenshot of Add to Inventory
+ Manager Options Add to Inventory
+{ action: 'Add to Inventory' }
+? Add more inventory to what item? 5
+? How much inventory to you want to add? 20
+{ itemnumber: '5', inventory: '20' }
+3240
+item_id  product_name    department_name  price  stock_quantity
+-------  --------------  ---------------  -----  --------------
+1        basketball      sports           10.5   100
+2        football        sports           11     44
+3        tennis ball     sports           2.5    60200
+4        running shirt   active wear      24.5   15
+5        running shorts  active wear      24.5   3240
+6        hat             outer wear       6.5    250
+7        gloves          outer wear       10     55
+8        screw driver    tools            4.5    125
+9        hammer          tools            6      300
+10       solder iron     tools            21     450
+11       swim            sport            40     300
+12       ball            sports           30     300
+13       ball            sports           30     300
+
+? Manager Options (Use arrow keys)
+> View Products for Sale
+  View Low Inventory
+  Add to Inventory
+  Add New Product
+4) Screenshot of add new item to the database. I added a swimsuit.
+? Manager Options Add New Product
+{ action: 'Add New Product' }
+? What is the name of the product you want to add? swimsuit
+? What department is the product in? sports
+? What is the price of the item? 25.00
+? What is the original stock quantity for the item? 300
+{ productname: 'swimsuit',
+  departmentname: 'sports',
+  price: '25.00',
+  stockquantity: '300' }
+? Manager Options (Use arrow keys)
+? Manager Options View Products for Sale
+{ action: 'View Products for Sale' }
+item_id  product_name    department_name  price  stock_quantity
+-------  --------------  ---------------  -----  --------------
+1        basketball      sports           10.5   100
+2        football        sports           11     44
+3        tennis ball     sports           2.5    60200
+4        running shirt   active wear      24.5   15
+5        running shorts  active wear      24.5   3240
+6        hat             outer wear       6.5    250
+7        gloves          outer wear       10     55
+8        screw driver    tools            4.5    125
+9        hammer          tools            6      300
+10       solder iron     tools            21     450
+11       swim            sport            40     300
+12       ball            sports           30     300
+13       ball            sports           30     300
+14       swimsuit        sports           25     300
+

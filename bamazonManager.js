@@ -67,13 +67,16 @@ var ProductForSale = function () {
     });
 }
 var ViewLowInventory = function () {
-    query = "Select * FROM products Where stock_quantity < 5";
+    query = "Select * FROM products Where stock_quantity < 20";
     connection.query(query, function (err, res) {
         if (err) throw err;
+        console.log("");
         console.table(res);
-        runSearch();
+        
     })
-
+    // runSearch();
+    
+   
 }
 
 var AddToInventory = function () {
@@ -90,12 +93,13 @@ var AddToInventory = function () {
         var query = "Select product_name, stock_quantity FROM products where item_id =" + answer.itemnumber
         connection.query(query, function (err, res) {
             if (err) throw err;
-            var newQuantity = res[0].stock_quantity + answer.inventory;
+            var newQuantity = Number(res[0].stock_quantity) + Number(answer.inventory);
+            console.log(newQuantity);
             modifyRecord(answer.itemnumber, newQuantity);
             // console.log("The amount in stock changed from " + res[0].stock_quantity + " to " + newQuantity);
         })
     })
-    runSearch();
+    // runSearch();
 }
 var AddNewProduct = function () {
     inquirer.prompt([{
