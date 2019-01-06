@@ -1,1 +1,58 @@
 # SQLhomework12
+Overview
+In this activity,we are creating an Amazon-like storefront using MySQL skills. The app will take in orders from customers and deplete stock from the store's inventory. 
+
+Process to complete the app
+
+I created a MySQL Database called bamazon. I then created a table inside of the database called prodcuts. The table has the following columns: item_id (unique id for each product),
+product_name (Name of product), department_name, price (cost to customer), stock_quantity (how much of the product is available in stores). I populated the database with 10 different products. 
+
+
+
+I created a Node application called bamazonCustomer.js. The application will display the items available for sale. The app will prompt the users with 2 messages: What is the ID the user would like to buy and How many of the item the user would like to buy. The application will check if the store has enough product to meet demand. If it does not, there will be an error message. A screenshot is below:
+
+Denise@DESKTOP-M2T1598 MINGW64 ~/Dropbox/work_at_home/aaa_denise_utbootcamp/Code/SQLhomework12 (master)
+$ node bamazonCustomer.js
+connected as id: 37
+id: 1, Product: basketball, quantity: 100, price 10.5
+id: 2, Product: football, quantity: 200, price 11
+id: 3, Product: tennis ball, quantity: 500, price 2.5
+id: 4, Product: running shirt, quantity: 150, price 24.5
+id: 5, Product: running shorts, quantity: 40, price 24.5
+id: 6, Product: hat, quantity: 250, price 6.5
+id: 7, Product: gloves, quantity: 55, price 10
+id: 8, Product: screw driver, quantity: 125, price 4.5
+id: 9, Product: hammer, quantity: 300, price 6
+id: 10, Product: solder iron, quantity: 400, price 21
+? What is the ID of the item you wish to buy? 5
+? How many would you like to buy? 50
+5 'running shorts' 40
+There is not enough stock
+
+If there is enough demand, the order will be fufilled and the quanitity will be removed from the database. A screenshot is below:
+
+Denise@DESKTOP-M2T1598 MINGW64 ~/Dropbox/work_at_home/aaa_denise_utbootcamp/Code/SQLhomework12 (master)
+$ node bamazonCustomer.js
+id: 1, Product: basketball, quantity: 0, price 10.5
+id: 2, Product: football, quantity: 49, price 11
+id: 3, Product: tennis ball, quantity: 60, price 2.5
+id: 4, Product: running shirt, quantity: 15, price 24.5
+id: 5, Product: running shorts, quantity: 32, price 24.5
+id: 6, Product: hat, quantity: 250, price 6.5
+id: 7, Product: gloves, quantity: 55, price 10
+id: 8, Product: screw driver, quantity: 125, price 4.5
+id: 9, Product: hammer, quantity: 300, price 6
+id: 10, Product: solder iron, quantity: 400, price 21
+? What is the ID of the item you wish to buy? 2
+? How many would you like to buy? 5
+You have successfully ordered your product
+You bought  5 footballs for $ 484
+The amount in stock changed from 49 to 44
+
+
+
+
+
+
+This means updating the SQL database to reflect the remaining quantity.
+Once the update goes through, show the customer the total cost of their purchase.
