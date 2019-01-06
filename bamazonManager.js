@@ -55,12 +55,12 @@ var ProductForSale = function () {
     connection.query("SELECT * FROM products", function (err, res) {
         if (err) throw err;
         // res.forEach(element => {
-            // console.log("id: " + element.item_id
-            //     + ", Product: " + element.product_name +
-            //     ", quantity: " + element.stock_quantity +
-            //     ", price " + element.price
-            // );
-            console.table(res);
+        // console.log("id: " + element.item_id
+        //     + ", Product: " + element.product_name +
+        //     ", quantity: " + element.stock_quantity +
+        //     ", price " + element.price
+        // );
+        console.table(res);
 
         // });
         runSearch()
@@ -77,17 +77,23 @@ var ViewLowInventory = function () {
 }
 
 var AddToInventory = function () {
-    inquirer.prompt({
-        name: "inventory",
+    inquirer.prompt([{
+        name: "itemnumber",
         type: "input",
         message: "Add more inventory to what item?"
-    }).then(function (answer) {
+    }, {
+        name: "inventory",
+        type: "input",
+        message: "How much inventory to you want to add?"
+    }]).then(function (answer) {
         console.log(answer);
-        var query = "Select product_name, stock_quantity FROM products where item_id = "
-        if (err) throw err;
-        var newQuantity = res[0].stock_quantity + inventory;
-        modifyRecord(newQuantity);
-        console.log("The amount in stock changed from " + res[0].stock_quantity + " to " + newQuantity);
+        var query = "Select product_name, stock_quantity FROM products where item_id =" + answer.itemnumber
+        connection.query(query, function (err, res) {
+            if (err) throw err;
+            var newQuantity = res[0].stock_quantity + answer.inventory;
+            modifyRecord(answer.itemnumber, newQuantity);
+            // console.log("The amount in stock changed from " + res[0].stock_quantity + " to " + newQuantity);
+        })
     })
     runSearch();
 }
@@ -105,14 +111,29 @@ var AddNewProduct = function () {
         type: "input",
         message: "What is the price of the item?"
     }, {
-        name: "stock_quantity",
+        name: "stockquantity",
         type: "input",
         message: "What is the original stock quantity for the item?"
     }
 
     ]).then(function (answer) {
         console.log(answer);
+        var sql = 'INSERT INTO products (product_name, department_name, price, stock_quantity) VALUES  ("'+answer.productname+'","'+answer.departmentname+'", "'+answer.price+'", "'+answer.stockquantity+'")';
+        connection.query(sql, function (err, res) {
+    if (err) throw err;
+    console.log("1 record inserted");
+  });
+runSearch();
+    })
+}
 
-
+function modifyRecord(buyItem, newQuantity) {
+   
+    var sql="Update products SET stock_quantity =" + newQuantity + " WHERE item_id = " + buyItem;
+    
+    connection.query(sql, function (err, res) {
+		if(err)throw err;
+     ProductForSale();
+       
     })
 }
